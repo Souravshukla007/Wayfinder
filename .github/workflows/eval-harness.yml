@@ -1,0 +1,57 @@
+name: Evaluation Harness
+
+# Quality gate for the Wayfinder backend: run the evaluation harness against the
+# golden scenarios on mock providers (no paid API key) and fail the build when
+# any plan scores below its defined per-metric threshold.
+#
+# Implements task 22.3 (Requirement 14.3): "IF a produced plan scores below a
+# defined threshold for a Golden_Scenario, THEN THE Eval_Harness SHALL fail the
+# CI run and report the failing metric."
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "backend/**"
+      - ".github/workflows/eval-harness.yml"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "backend/**"
+      - ".github/workflows/eval-harness.yml"
+  workflow_dispatch: {}
+
+jobs:
+  eval-harness:
+    name: Golden scenario quality gate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      # Force the zero-key, mock-provider path (Requirement 18.4): no real
+      # provider or LLM credentials are configured, so Settings() falls back to
+      # mock providers and the stub LLM. PYTHONHASHSEED keeps runs reproducible.
+      ENVIRONMENT: test
+      PYTHONHASHSEED: "0"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run evaluation harness against golden scenarios
+        # `python -m app.eval.harness` prints a per-scenario report, then exits
+        # non-zero (reporting the failing metric on stderr) when any metric is
+        # below threshold. A non-zero exit fails this step and the build.
+        run: python -m app.eval.harness

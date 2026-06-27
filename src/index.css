@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 240 30% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 30% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 30% 14%;
+
+    --primary: 340 75% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 94%;
+    --secondary-foreground: 240 30% 14%;
+
+    --muted: 240 10% 96%;
+    --muted-foreground: 240 5% 46%;
+
+    --accent: 240 10% 94%;
+    --accent-foreground: 240 30% 14%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 340 75% 58%;
+
+    --radius: 0.5rem;
+
+    --success: 172 50% 40%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 80% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 30% 14%;
+    --sidebar-primary: 340 75% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 240 30% 14%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 340 75% 58%;
+  }
+
+  .dark {
+    --background: 240 25% 8%;
+    --foreground: 240 5% 95%;
+
+    --card: 240 25% 11%;
+    --card-foreground: 240 5% 95%;
+
+    --popover: 240 25% 11%;
+    --popover-foreground: 240 5% 95%;
+
+    --primary: 340 75% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 15% 18%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 15% 18%;
+    --muted-foreground: 240 5% 55%;
+
+    --accent: 240 15% 18%;
+    --accent-foreground: 240 5% 95%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 15% 20%;
+    --input: 240 15% 20%;
+    --ring: 340 75% 58%;
+
+    --sidebar-background: 240 25% 8%;
+    --sidebar-foreground: 240 5% 85%;
+    --sidebar-primary: 340 75% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 15% 14%;
+    --sidebar-accent-foreground: 240 5% 95%;
+    --sidebar-border: 240 15% 16%;
+    --sidebar-ring: 340 75% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .prose-readable {
+    max-width: 70ch;
+  }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

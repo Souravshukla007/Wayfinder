@@ -1,7 +1,9 @@
 # Wayfinder backend — pinned core dependencies
 fastapi==0.115.6
 uvicorn[standard]==0.34.0
-pydantic==2.10.4
+# pydantic>=2.12.5 is required by google-genai==2.10.0; keep <3.0.0 for fastapi
+# and >=2.7.0 for pydantic-settings. 2.12.5 is the lowest pin satisfying all three.
+pydantic==2.12.5
 pydantic-settings==2.7.1
 
 # Database
